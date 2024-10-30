@@ -2,14 +2,19 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/app"
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/database"
 	"github.com/go-playground/validator/v10"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	client, err := database.Connect("mongodb://localhost:27017")
+	if err := godotenv.Load(); err != nil {
+		log.Print("No .env file found")
+	}
+	client, err := database.Connect(os.Getenv("MONGODB_URI"))
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -2,6 +2,8 @@ package app
 
 import (
 	"fmt"
+	"os"
+	"strconv"
 
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/handleres"
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/repository"
@@ -43,8 +45,10 @@ func (s App) Run() error {
 		return nil
 	})
 
-	log.Info("HTTP server is listening on PORT: ", 6060)
-	if err := s.app.Listen(fmt.Sprintf(":%d", 6060)); err != nil {
+	port, _ := strconv.Atoi(os.Getenv("PORT"))
+
+	log.Info("HTTP server is listening on PORT: ", port)
+	if err := s.app.Listen(fmt.Sprintf(":%d", port)); err != nil {
 		log.Fatalf("Running HTTP server: %v", err)
 	}
 	return nil
