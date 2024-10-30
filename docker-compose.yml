@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"  # Порт для доступа к MongoDB
+    volumes:
+      - mongo_data:/data/db  # Хранение данных на локальной машине
+
+volumes:
+  mongo_data:
