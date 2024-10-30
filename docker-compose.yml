@@ -8,6 +8,15 @@ services:
       - "27017:27017"  # Порт для доступа к MongoDB
     volumes:
       - mongo_data:/data/db  # Хранение данных на локальной машине
-
+  
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./images:/app/images
+    depends_on:
+      - mongo
 volumes:
   mongo_data:
