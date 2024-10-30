@@ -28,6 +28,5 @@ func UploadFile(file *multipart.FileHeader, uploadDir string, name string) error
 	if _, err := io.Copy(dst, src); err != nil {
 		return err
 	}
-
 	return nil
 }
