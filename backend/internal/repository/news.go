@@ -9,7 +9,6 @@ import (
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type INewsRepository interface {
@@ -67,13 +66,6 @@ func (r *NewsRepository) GetByID(ctx context.Context, idHex string) (models.News
 
 	var news models.News
 	if err := coll.FindOne(ctx, filter).Decode(&news); err != nil {
-		if err == mongo.ErrNoDocuments {
-			return models.News{}, &response.ErrorResponse{
-				StatusCode: 404,
-				Message:    "News not found",
-				Err:        err,
-			}
-		}
 		return models.News{}, err
 	}
 

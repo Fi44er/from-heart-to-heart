@@ -16,3 +16,7 @@ cd from-heart-to-heart
 ```bash
 docker compose up
 ```
+
+## Swagger
+
+Доступ к документации можно получить по адресу: *http://localhost:8080/swagger/index.html*

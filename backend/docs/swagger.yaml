@@ -1,0 +1,119 @@
+basePath: /api/v1/
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample swagger for Fiber
+  title: From heart to heart API
+  version: "1.0"
+paths:
+  /news:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all news
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all news
+      tags:
+      - news
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a new news item
+      parameters:
+      - description: Title of the news
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Description of the news
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: Photo of the news
+        in: formData
+        name: photo
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create news
+      tags:
+      - news
+  /news/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a news item by its ID
+      parameters:
+      - description: ID новости
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete news
+      tags:
+      - news
+    get:
+      consumes:
+      - application/json
+      description: Get a news item by its ID
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get news by ID
+      tags:
+      - news
+    put:
+      consumes:
+      - multipart/form-data
+      description: Update a news item by its ID
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Title of the news
+        in: formData
+        name: title
+        type: string
+      - description: Description of the news
+        in: formData
+        name: description
+        type: string
+      - description: Photo of the news
+        in: formData
+        name: photo
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update news by ID
+      tags:
+      - news
+swagger: "2.0"

@@ -4,11 +4,18 @@ import (
 	"log"
 	"os"
 
+	_ "github.com/Fi44er/from-heart-to-heart/backend/docs"
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/app"
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/database"
 	"github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
 )
+
+//	@title			From heart to heart API
+//	@version		1.0
+//	@description	This is a sample swagger for Fiber
+//	@host			localhost:8080
+//	@BasePath		/api/v1/
 
 func main() {
 	if err := godotenv.Load(); err != nil {

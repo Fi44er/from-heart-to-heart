@@ -14,6 +14,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/swagger"
 )
 
 type App struct {
@@ -40,6 +41,8 @@ func (s App) Run() error {
 		log.Fatalf("MapRoutes Error: %v", err)
 	}
 
+	s.app.Get("/swagger/*", swagger.HandlerDefault)
+
 	s.app.Get("/health", func(c *fiber.Ctx) error {
 		response.JSON(c, 200, nil)
 		return nil
@@ -59,6 +62,7 @@ func (s App) GetApp() *fiber.App {
 }
 
 func (s App) MapRoutes() error {
+
 	s.app.Static("/", "./images")
 
 	v1 := s.app.Group("/api/v1")

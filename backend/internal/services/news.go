@@ -68,6 +68,13 @@ func (s *NewsService) GetAll(ctx context.Context) ([]models.News, error) {
 func (s *NewsService) GetByID(ctx context.Context, id string) (models.News, error) {
 	news, err := s.repo.GetByID(ctx, id)
 	if err != nil {
+		if err.Error() == "mongo: no documents in result" {
+			return models.News{}, &response.ErrorResponse{
+				StatusCode: 404,
+				Message:    "News not found",
+				Err:        err,
+			}
+		}
 		return models.News{}, err
 	}
 	return news, nil
@@ -75,7 +82,18 @@ func (s *NewsService) GetByID(ctx context.Context, id string) (models.News, erro
 
 func (s *NewsService) Update(ctx context.Context, data *dto.UpdateNews, id string) error {
 	var name string
-	if data.Photo.Filename != "" {
+	if data.Photo != nil {
+		news, err := s.repo.GetByID(ctx, id)
+		if err != nil {
+			if err.Error() != "mongo: no documents in result" {
+				return err
+			}
+		}
+
+		if err := utils.DeleteFile("./images/" + news.Photo); err != nil && news.Photo != "" {
+			return err
+		}
+
 		lastDot := strings.LastIndex(data.Photo.Filename, ".")
 		name = uuid.New().String() + data.Photo.Filename[lastDot:]
 		if err := utils.UploadFile(data.Photo, "./images", name); err != nil {
@@ -84,6 +102,7 @@ func (s *NewsService) Update(ctx context.Context, data *dto.UpdateNews, id strin
 	}
 
 	news := models.News{
+		ID:          id,
 		Title:       data.Title,
 		Description: data.Description,
 		Photo:       name,
@@ -96,8 +115,21 @@ func (s *NewsService) Update(ctx context.Context, data *dto.UpdateNews, id strin
 }
 
 func (s *NewsService) Delete(ctx context.Context, id string) error {
+	news, err := s.repo.GetByID(ctx, id)
+	if err != nil {
+		if err.Error() == "mongo: no documents in result" {
+			return nil
+		}
+		return err
+	}
 	if err := s.repo.Delete(ctx, id); err != nil {
 		return err
+	}
+
+	if news.Photo != "" {
+		if err := utils.DeleteFile("./images/" + news.Photo); err != nil && news.Photo != "" {
+			return err
+		}
 	}
 	return nil
 }

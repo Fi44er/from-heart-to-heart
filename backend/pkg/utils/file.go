@@ -30,3 +30,11 @@ func UploadFile(file *multipart.FileHeader, uploadDir string, name string) error
 	}
 	return nil
 }
+
+func DeleteFile(filePath string) error {
+	err := os.Remove(filePath)
+	if err != nil {
+		return err
+	}
+	return nil
+}
