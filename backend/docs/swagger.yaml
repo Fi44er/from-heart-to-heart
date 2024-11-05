@@ -1,4 +1,12 @@
 basePath: /api/v1/
+definitions:
+  dto.PaymentDTO:
+    properties:
+      description:
+        type: string
+      value:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -116,4 +124,26 @@ paths:
       summary: Update news by ID
       tags:
       - news
+  /payment:
+    post:
+      consumes:
+      - application/json
+      description: Create a new payment and return the payment URL
+      parameters:
+      - description: Payment request
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PaymentDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create a new payment
+      tags:
+      - payments
 swagger: "2.0"

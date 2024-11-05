@@ -67,16 +67,22 @@ func (s App) MapRoutes() error {
 
 	v1 := s.app.Group("/api/v1")
 
-	news := v1.Group("/news")
-
 	newsRepo := repository.NewNewsRepository(s.db)
 	newsService := services.NewNewsService(newsRepo, s.validator)
 	newsHandler := handleres.NewNewsHandler(newsService)
+	news := v1.Group("/news")
 
 	news.Get("/", newsHandler.GetAll)
 	news.Get("/:id", newsHandler.GetByID)
 	news.Post("/", newsHandler.Create)
 	news.Put("/:id", newsHandler.Update)
 	news.Delete("/:id", newsHandler.Delete)
+
+	paymentService := services.NewPaymentService(s.validator)
+	paymentHandler := handleres.NewPaymentHandler(paymentService)
+	payment := v1.Group("/payment")
+
+	payment.Post("/", paymentHandler.CreatePayment)
+
 	return nil
 }
