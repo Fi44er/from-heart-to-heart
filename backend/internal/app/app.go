@@ -9,6 +9,7 @@ import (
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/repository"
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/services"
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/database"
+	"github.com/Fi44er/from-heart-to-heart/backend/pkg/midleware"
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/response"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -33,8 +34,10 @@ func NewApp(db database.Database, validator validator.Validate) *App {
 
 func (s App) Run() error {
 	s.app.Use(cors.New(cors.Config{
-		AllowOrigins: "*", // allow requests from your frontend
-		AllowHeaders: "Origin, Content-Type, Accept",
+		AllowOrigins:     "http://127.0.0.1:8080", // Укажите источник вашего клиента
+		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
+		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
+		AllowCredentials: true, // Включение поддержки учетных данных
 	}))
 
 	if err := s.MapRoutes(); err != nil {
@@ -62,11 +65,11 @@ func (s App) GetApp() *fiber.App {
 }
 
 func (s App) MapRoutes() error {
-
 	s.app.Static("/", "./images")
 
 	v1 := s.app.Group("/api/v1")
 
+	// ---
 	newsRepo := repository.NewNewsRepository(s.db)
 	newsService := services.NewNewsService(newsRepo, s.validator)
 	newsHandler := handleres.NewNewsHandler(newsService)
@@ -74,15 +77,25 @@ func (s App) MapRoutes() error {
 
 	news.Get("/", newsHandler.GetAll)
 	news.Get("/:id", newsHandler.GetByID)
-	news.Post("/", newsHandler.Create)
-	news.Put("/:id", newsHandler.Update)
-	news.Delete("/:id", newsHandler.Delete)
+	news.Post("/", midleware.JWTProtected, newsHandler.Create)
+	news.Put("/:id", midleware.JWTProtected, newsHandler.Update)
+	news.Delete("/:id", midleware.JWTProtected, newsHandler.Delete)
 
+	// ---
 	paymentService := services.NewPaymentService(s.validator)
 	paymentHandler := handleres.NewPaymentHandler(paymentService)
 	payment := v1.Group("/payment")
 
 	payment.Post("/", paymentHandler.CreatePayment)
+
+	// ---
+	userRepo := repository.NewUserRepository(s.db)
+	authService := services.NewAuthService(s.validator, userRepo)
+	authHandler := handleres.NewAuthHandler(authService)
+	auth := v1.Group("/auth")
+	auth.Post("/login", authHandler.Login)
+	auth.Post("/logout", authHandler.Logout)
+	auth.Post("/register", authHandler.Create)
 
 	return nil
 }

@@ -28,6 +28,7 @@ func main() {
 	defer database.Disconnect(client.Client)
 
 	validator := validator.New()
+
 	httpSvr := app.NewApp(*client, *validator)
 	if err = httpSvr.Run(); err != nil {
 		log.Fatal(err)
