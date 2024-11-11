@@ -51,7 +51,7 @@ func (h *AuthHandler) Login(ctx *fiber.Ctx) error {
 		HTTPOnly: true,
 	})
 
-	return nil
+	return response.JSON(ctx, 200, "OK")
 }
 
 // Logout godoc

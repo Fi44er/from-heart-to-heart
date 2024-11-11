@@ -34,10 +34,8 @@ func NewApp(db database.Database, validator validator.Validate) *App {
 
 func (s App) Run() error {
 	s.app.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://127.0.0.1:8080", // Укажите источник вашего клиента
-		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
-		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
-		AllowCredentials: true, // Включение поддержки учетных данных
+		AllowOrigins:     os.Getenv("CORS_ALLOW_ORIGINS"), // Укажите источник вашего клиента
+		AllowCredentials: true,                            // Включение поддержки учетных данных
 	}))
 
 	if err := s.MapRoutes(); err != nil {
