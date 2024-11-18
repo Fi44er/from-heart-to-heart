@@ -1,0 +1,227 @@
+basePath: /api/v1/
+definitions:
+  dto.PaymentDTO:
+    properties:
+      description:
+        type: string
+      value:
+        type: string
+    type: object
+  dto.User:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  models.User:
+    properties:
+      id:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample swagger for Fiber
+  title: From heart to heart API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Logs in a user
+      parameters:
+      - description: User  credentials
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Login
+      tags:
+      - auth
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Logs out a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Logout
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      parameters:
+      - description: User  credentials
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create user
+      tags:
+      - auth
+  /news:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of all news
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all news
+      tags:
+      - news
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create a new news item
+      parameters:
+      - description: Title of the news
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Description of the news
+        in: formData
+        name: description
+        required: true
+        type: string
+      - description: Photo of the news
+        in: formData
+        name: photo
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create news
+      tags:
+      - news
+  /news/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a news item by its ID
+      parameters:
+      - description: ID новости
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete news
+      tags:
+      - news
+    get:
+      consumes:
+      - application/json
+      description: Get a news item by its ID
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get news by ID
+      tags:
+      - news
+    put:
+      consumes:
+      - multipart/form-data
+      description: Update a news item by its ID
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Title of the news
+        in: formData
+        name: title
+        type: string
+      - description: Description of the news
+        in: formData
+        name: description
+        type: string
+      - description: Photo of the news
+        in: formData
+        name: photo
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update news by ID
+      tags:
+      - news
+  /payment:
+    post:
+      consumes:
+      - application/json
+      description: Create a new payment and return the payment URL
+      parameters:
+      - description: Payment request
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PaymentDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create a new payment
+      tags:
+      - payments
+swagger: "2.0"
