@@ -8,15 +8,24 @@ services:
       - "27017:27017"  # Порт для доступа к MongoDB
     volumes:
       - mongo_data:/data/db  # Хранение данных на локальной машине
+    networks:
+      - app-network
   
-  # backend:
-  #   build: ./backend
-  #   container_name: backend
-  #   ports:
-  #     - "8080:8080"
-  #   volumes:
-  #     - ./backend/images:/app/images
-  #   depends_on:
-  #     - mongo
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/images:/app/images
+    depends_on:
+      - mongo
+    networks:
+      - app-network  # Используем сеть для связи между сервисами
+
 volumes:
   mongo_data:
+
+networks:
+  app-network:  # Создаем сеть для связи между сервисами
+    driver: bridge
