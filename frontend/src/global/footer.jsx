@@ -1,7 +1,7 @@
 import { Box, Container, IconButton, Link, Typography } from "@mui/material";
 import React from "react";
 import { GlobalButton } from "../theme/theme";
-import Tg from "/public/telegram-svgrepo-com (1) 1.png";
+import Tg from "/telegram-svgrepo-com (1) 1.png";
 
 export default function Footer() {
   return (
@@ -47,7 +47,7 @@ export default function Footer() {
                 color: "#fff",
               }}
             >
-              <img src="/public/Vector.png" alt="" />
+              <img src="/Vector.png" alt="" />
               <Link
                 href="https://yandex.ru/maps/11090/novotroitsk/house/ulitsa_frunze_4/YUEYdQZiTEcHQFtrfX14dX9mZQ==/?ll=58.312520%2C51.194352&z=17"
                 variant="h5"
@@ -66,7 +66,7 @@ export default function Footer() {
                   window.location.href = "https://vk.com/club211949357";
                 }}
               >
-                <img src="/public/VK Logo.png" />
+                <img src="/VK Logo.png" />
               </IconButton>
               <IconButton
                 onClick={(e) => {
@@ -74,7 +74,7 @@ export default function Footer() {
                   window.location.href = "https://t.me/fromheart56";
                 }}
               >
-                <img src="/public/telegram-svgrepo-com (1) 1.png" alt="" />
+                <img src="/telegram-svgrepo-com (1) 1.png" alt="" />
               </IconButton>
             </Box>
           </Box>
@@ -146,7 +146,7 @@ export default function Footer() {
               },
             }}
           >
-            <img src="/public/Group 25.png" alt="Logo" />
+            <img src="/Group 25.png" alt="Logo" />
           </Box>
         </Container>
       </Box>

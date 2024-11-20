@@ -100,7 +100,6 @@ export default function HelpSection() {
             display: "flex",
             flexDirection: "column",
             gridGap: "30px",
-            
           }}
         >
           <Accordion
@@ -235,7 +234,7 @@ export default function HelpSection() {
           >
             <CardMedia
               component="img"
-              image={"/public/Group 35 (2).png"}
+              image={"/Group 35 (2).png"}
               alt="Благотворительный проект"
               sx={{
                 width: "100%",

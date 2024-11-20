@@ -106,7 +106,7 @@ export default function About() {
               <video
                 width="100%"
                 height="400px"
-                src="/public/phond.mp4"
+                src="/phond.mp4"
                 aria-label="Видео о работе фонда"
                 controls
               ></video>

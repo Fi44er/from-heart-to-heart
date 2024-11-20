@@ -13,19 +13,19 @@ import HelpSection from "./components/helpSection";
 const slides = [
   {
     id: 1,
-    content: "/public/Slide1.png",
+    content: "/Slide1.png",
   },
   {
     id: 2,
-    content: "/public/Slide2.png",
+    content: "/Slide2.png",
   },
   {
     id: 3,
-    content: "/public/Slide3.png",
+    content: "/Slide3.png",
   },
   {
     id: 4,
-    content: "/public/Slide4.png",
+    content: "/Slide4.png",
   },
 ];
 

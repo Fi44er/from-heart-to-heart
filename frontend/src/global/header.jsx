@@ -20,7 +20,7 @@ import React, { useState } from "react";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Logo from "/public/Logo.png";
-import mobileLogo from "/public/mobileLogo.png";
+import mobileLogo from "/mobileLogo.png";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -64,7 +64,7 @@ export default function Header() {
   };
   const menuItems = [
     { text: "О фонде", href: "/" },
-    { text: "Новости", href: "/news" },
+    { text: "Проекты", href: "/news" },
     {
       text: "Помочь фонду",
       href: "/#help",
@@ -91,10 +91,10 @@ export default function Header() {
               md: "max-content",
               cursor: "pointer",
             },
-            zIndex:"4"
+            zIndex: "4",
           }}
         >
-          <img style={{ width: "100%" }} src="/public/Logo.png" alt="" />
+          <img style={{ width: "100%" }} src="/Logo.png" alt="" />
         </Box>
         <Nav>
           <Breadcrumbs
@@ -145,7 +145,7 @@ export default function Header() {
             },
           }}
         >
-          <img src="/public/MenuIcon.svg" />
+          <img src="/MenuIcon.svg" />
         </IconButton>
       </Toolbar>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>

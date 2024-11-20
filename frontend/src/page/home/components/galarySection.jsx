@@ -13,23 +13,23 @@ import React from "react";
 const slides = [
   {
     id: 1,
-    content: "/public/slideGalary1.png",
+    content: "/slideGalary1.png",
   },
   {
     id: 2,
-    content: "/public/slideGalary2.png",
+    content: "/slideGalary2.png",
   },
   {
     id: 3,
-    content: "/public/slideGalary3.png",
+    content: "/slideGalary3.png",
   },
   {
     id: 4,
-    content: "/public/slideGalary4.png",
+    content: "/slideGalary4.png",
   },
   {
     id: 5,
-    content: "/public/slideGalary5.png",
+    content: "/slideGalary5.png",
   },
 ];
 
