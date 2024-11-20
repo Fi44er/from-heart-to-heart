@@ -23,15 +23,15 @@ services:
     networks:
       - app-network  # Используем сеть для связи между сервисами
 
-  frontend:
-    build: ./charity_frontend
-    container_name: frontend
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    networks:
-      - app-network
+  # frontend:
+  #   build: ./charity_frontend
+  #   container_name: frontend
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - app-network
 
 volumes:
   mongo_data:
