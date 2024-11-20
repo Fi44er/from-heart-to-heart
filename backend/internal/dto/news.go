@@ -3,13 +3,13 @@ package dto
 import "mime/multipart"
 
 type CreateNews struct {
-	Title       string                `bson:"title" validate:"required"`
-	Description string                `bson:"description" validate:"required"`
-	Photo       *multipart.FileHeader `bson:"photo" validate:"required"`
+	Title       string                `json:"title" validate:"required"`
+	Description string                `json:"description" validate:"required"`
+	Photo       *multipart.FileHeader `json:"photo" validate:"required"`
 }
 
 type UpdateNews struct {
-	Title       string                `bson:"title"`
-	Description string                `bson:"description"`
-	Photo       *multipart.FileHeader `bson:"photo"`
+	Title       string                `json:"title"`
+	Description string                `json:"description"`
+	Photo       *multipart.FileHeader `json:"photo"`
 }

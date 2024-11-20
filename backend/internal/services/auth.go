@@ -30,6 +30,9 @@ func NewAuthService(validator validator.Validate, repo repository.IUserRepositor
 }
 
 func (s *AuthService) Login(ctx context.Context, data *dto.User) (string, error) {
+	if err := s.validator.Struct(data); err != nil {
+		return "", &response.ErrorResponse{StatusCode: 400, Message: "validation error", Err: err}
+	}
 	user, err := s.repo.GetByUsername(ctx, data.Username)
 	if err != nil {
 		if err.Error() == "mongo: no documents in result" {
