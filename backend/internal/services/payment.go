@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/dto"
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/response"
@@ -40,13 +41,15 @@ func (s *PaymentService) CreatePayment(ctx context.Context, dtoReq *dto.PaymentD
 		return "", &response.ErrorResponse{StatusCode: 400, Message: "validation error", Err: err}
 	}
 
+	main_page := os.Getenv("HOME_PAGE")
+
 	data := dto.PaymentRequest{
 		Amount: dto.Amount{
 			Value:    dtoReq.Value,
 			Currency: "RUB",
 		},
 		Description:  dtoReq.Description,
-		Confirmation: dto.Confirmation{Type: "redirect", ReturnURL: "http://example.com"},
+		Confirmation: dto.Confirmation{Type: "redirect", ReturnURL: main_page},
 		Capture:      true,
 	}
 
