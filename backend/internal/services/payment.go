@@ -6,7 +6,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
 	"os"
 
@@ -87,9 +86,6 @@ func (s *PaymentService) CreatePayment(ctx context.Context, dtoReq *dto.PaymentD
 	if err := json.Unmarshal(body, &paymentResponse); err != nil {
 		return "", err
 	}
-
-	log.Println(string(body))
-	log.Println(paymentResponse)
 
 	return paymentResponse.Confirmation.ConfirmationURL, nil
 }
