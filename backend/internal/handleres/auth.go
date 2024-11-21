@@ -45,11 +45,10 @@ func (h *AuthHandler) Login(ctx *fiber.Ctx) error {
 	hour, _ := strconv.Atoi(os.Getenv("JWT_EXP"))
 
 	ctx.Cookie(&fiber.Cookie{
-		Name:     "token",
-		Value:    token,
-		Expires:  time.Now().Add(time.Hour * time.Duration(hour)),
-		HTTPOnly: true,
-		Secure:   true,
+		Name:    "token",
+		Value:   token,
+		Expires: time.Now().Add(time.Hour * time.Duration(hour)),
+		Secure:  true,
 	})
 
 	return response.JSON(ctx, 200, "OK")
@@ -65,11 +64,10 @@ func (h *AuthHandler) Login(ctx *fiber.Ctx) error {
 // @Router /auth/logout [post]
 func (h *AuthHandler) Logout(ctx *fiber.Ctx) error {
 	ctx.Cookie(&fiber.Cookie{
-		Name:     "token",
-		Value:    "",
-		Expires:  time.Now().Add(-time.Hour),
-		HTTPOnly: true,
-		Secure:   true,
+		Name:    "token",
+		Value:   "",
+		Expires: time.Now().Add(-time.Hour),
+		Secure:  true,
 	})
 	return response.JSON(ctx, 200, "OK")
 }
