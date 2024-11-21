@@ -49,6 +49,7 @@ func (h *AuthHandler) Login(ctx *fiber.Ctx) error {
 		Value:    token,
 		Expires:  time.Now().Add(time.Hour * time.Duration(hour)),
 		HTTPOnly: true,
+		Secure:   true,
 	})
 
 	return response.JSON(ctx, 200, "OK")
@@ -68,6 +69,7 @@ func (h *AuthHandler) Logout(ctx *fiber.Ctx) error {
 		Value:    "",
 		Expires:  time.Now().Add(-time.Hour),
 		HTTPOnly: true,
+		Secure:   true,
 	})
 	return response.JSON(ctx, 200, "OK")
 }

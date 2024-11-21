@@ -63,7 +63,7 @@ func (s App) GetApp() *fiber.App {
 }
 
 func (s App) MapRoutes() error {
-	s.app.Static("/", "./images")
+	s.app.Static("/api/v1/images/", "./images")
 
 	v1 := s.app.Group("/api/v1")
 
