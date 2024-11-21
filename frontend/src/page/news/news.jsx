@@ -95,18 +95,18 @@ export default function News() {
         >
           {currentNews.map((data) => {
             return (
-              <Grid key={data.ID} size={{ xs: 10, sm: 4, md: 6 }}>
+              <Grid key={data.id} size={{ xs: 10, sm: 4, md: 6 }}>
                 <article>
                   <Card
                     onClick={(e) => {
                       e.preventDefault();
-                      window.location.href = `/news/${data.ID}`;
+                      window.location.href = `/news/${data.id}`;
                     }}
                     sx={{ width: "100%" }}
                   >
                     <CardMedia
                       component="img"
-                      image={`${urlPictures}/${data.Photo}`}
+                      image={`${urlPictures}/${data.photo}`}
                       alt={data.Title}
                       sx={{
                         width: "100%",
@@ -115,12 +115,12 @@ export default function News() {
                       }}
                     />
                     <CardContent>
-                      <CardHeader title={data.Title} />
+                      <CardHeader title={data.title} />
                       <Typography
                         variant="body2"
                         sx={{ color: "text.secondary" }}
                       >
-                        {data.Description}
+                        {data.description}
                       </Typography>
                     </CardContent>
                   </Card>

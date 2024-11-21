@@ -58,13 +58,13 @@ export default function NewsDynamicPage() {
               }}
             >
               <Typography variant="h4" component="h2">
-                {newsItem.result.Title}
+                {newsItem.result.title}
               </Typography>
             </Box>
             <Box>
               <CardContent>
                 <Typography variant="h6" component="p">
-                  {newsItem.result.Description}
+                  {newsItem.result.description}
                 </Typography>
               </CardContent>
             </Box>
@@ -72,7 +72,7 @@ export default function NewsDynamicPage() {
           <Box sx={{ width: { xs: "100%", md: "50%" } }}>
             <CardMedia
               component="img"
-              image={`${urlPictures}/${newsItem.result.Photo}`}
+              image={`${urlPictures}/${newsItem.result.photo}`}
               alt="Paella dish"
               sx={{
                 width: "100%",

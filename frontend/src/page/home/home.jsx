@@ -27,6 +27,10 @@ const slides = [
     id: 4,
     content: "/Slide4.png",
   },
+  {
+    id: 5,
+    content: "/Slide5.png",
+  },
 ];
 
 const CustomPrevArrow = (props) => {
@@ -114,7 +118,7 @@ export default function Home() {
       <Box id={"help"} sx={{ mt: 8, position: "relative" }}>
         <HelpSection />
       </Box>
-      <Box sx={{ mt: 8, mb:6, position: "relative" }}>
+      <Box sx={{ mt: 8, mb: 6, position: "relative" }}>
         <GalarySection />
       </Box>
     </Box>

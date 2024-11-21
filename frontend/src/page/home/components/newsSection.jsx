@@ -87,18 +87,18 @@ export default function NewsSection() {
           sx={{ mt: 4 }}
         >
           {latestNews.map((data) => (
-            <Grid key={data.ID} size={{ xs: 10, sm: 4, md: 4 }}>
+            <Grid key={data.id} size={{ xs: 10, sm: 4, md: 4 }}>
               <Card
                 onClick={(e) => {
                   e.preventDefault();
-                  window.location.href = `/news/${data.ID}`;
+                  window.location.href = `/news/${data.id}`;
                 }}
                 sx={{ width: "100%" }}
               >
                 <CardMedia
                   component="img"
-                  image={`${urlPictures}/${data.Photo}`}
-                  alt={`Изображение для новости: ${data.Title}`}
+                  image={`${urlPictures}/${data.photo}`}
+                  alt={`Изображение для новости: ${data.title}`}
                   sx={{
                     width: "100%",
                     height: { xs: "200px", sm: "300px", md: "400px" },
@@ -106,8 +106,8 @@ export default function NewsSection() {
                   }}
                 />
                 <CardContent sx={{ backgroundColor: "#ECFBFF" }}>
-                  <CardHeader title={data.Title} />
-                  <Typography variant="body2">{data.Description}</Typography>
+                  <CardHeader title={data.title} />
+                  <Typography variant="body2">{data.description}</Typography>
                 </CardContent>
               </Card>
             </Grid>

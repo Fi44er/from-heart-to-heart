@@ -11,9 +11,15 @@ import { Navigate } from "react-router-dom";
 import UpdateNews from "../../page/Admin/components/UpdateNews/UpdateNews.jsx";
 
 const PrivateRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  };
 
-  if (!isAuthenticated) {
+  const token = getCookie("token"); // Проверяем наличие токена в куки
+
+  if (!token) {
     return <Navigate to="/" replace />;
   }
 

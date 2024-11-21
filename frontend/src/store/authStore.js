@@ -2,29 +2,16 @@ import { create } from "zustand";
 import axios from "axios";
 import { url } from "../constants/contants";
 import { useNavigate } from "react-router-dom";
-
-const Authenticated = (isAuthenticated) => {
-  if (isAuthenticated) {
-    // Если аутентификация успешна, сохраняем информацию в localStorage
-    localStorage.setItem("isAuthenticated", "true");
-    // Здесь можно сохранить дополнительную информацию, например, роль пользователя
-    // localStorage.setItem("userRole", "Administrator"); // если роль доступна в ответе
-  } else {
-    // Если аутентификация не удалась, очищаем localStorage
-    localStorage.removeItem("isAuthenticated");
-    // localStorage.removeItem("userRole"); // очищаем роль, если она была сохранена
-  }
-};
+import Cookies from "js-cookie";
 
 export const checkUserAuth = () => {
-  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  const isAuthenticated = Cookies.get("token");
 
   if (isAuthenticated) {
     window.location.href = "/Admin";
     return true;
   } else {
     window.location.href = "/auth";
-
     return false;
   }
 };
@@ -32,8 +19,10 @@ export const checkUserAuth = () => {
 const useAuthStore = create((set, get) => ({
   username: "",
   password: "",
+  isAuthenticated: false,
   setUsername: (username) => set({ username }),
   setPassword: (password) => set({ password }),
+  setAuthenticated: (value) => set({ isAuthenticated: value }),
 
   AuthFunc: async () => {
     const { username, password } = useAuthStore.getState();
@@ -55,15 +44,14 @@ const useAuthStore = create((set, get) => ({
 
       // Проверяем только статус ответа
       if (response.status === 200) {
-        Authenticated(true); // Успешная аутентификация
+        get().setAuthenticated(true); // Use the setter here
       } else {
-        Authenticated(false); // Неуспешная аутентификация (возможно, это не понадобится)
+        get().setAuthenticated(false);
         alert("Неправильный логин или пароль");
       }
       checkUserAuth();
     } catch (error) {
-      // Если произошла ошибка, очищаем статус аутентификации
-      Authenticated(false);
+      get().setAuthenticated(false);
       alert(
         "Ошибка авторизации: не правильный логин или пороль  " + error.message
       );
@@ -76,7 +64,7 @@ const useAuthStore = create((set, get) => ({
         withCredentials: true,
       });
       console.log("Response", response.data);
-      localStorage.removeItem("isAuthenticated"); // Удаляем isAuthenticated из локального хранилища
+      Cookies.remove("token");
     } catch (error) {
       console.error("Ошибка при выходе:", error); // Рекомендуется обработать ошибку
     }

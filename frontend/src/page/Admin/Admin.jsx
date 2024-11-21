@@ -21,6 +21,9 @@ import { urlPictures } from "../../constants/contants";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../store/authStore";
 import NavBar from "./components/NavBar/NavBar";
+import Cookies from "js-cookie";
+
+
 
 export default function Admin() {
   const {

@@ -37,6 +37,7 @@ export default function HelpSection() {
     setValue("");
     setDescription("");
   };
+
   return (
     <Box sx={{ position: "relative" }}>
       <Helmet>
@@ -274,6 +275,7 @@ export default function HelpSection() {
                   variant="outlined"
                   margin="normal"
                   value={value}
+                  type="number"
                   onChange={(e) => setValue(e.target.value)}
                 />
                 <TextField

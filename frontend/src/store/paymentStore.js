@@ -13,6 +13,7 @@ const usePaymentStore = create((set, get) => ({
     const formData = new FormData();
     formData.append("value", value);
     formData.append("description", description);
+
     try {
       const response = await axios.post(`${url}/api/v1/payment`, formData);
 

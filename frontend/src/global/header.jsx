@@ -24,7 +24,7 @@ import mobileLogo from "/mobileLogo.png";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
-  justifyContent: "flex-start",
+  justifyContent: "space-between",
   position: "relative",
   [theme.breakpoints.down("sm")]: {
     // Используйте медиа-запрос для скрытия на мобильных устройствах
@@ -74,7 +74,6 @@ export default function Header() {
       href: "https://chat.whatsapp.com/I0nXNEzdW885onWh2CBVQ2",
     },
     { text: "Документация", href: "https://disk.yandex.ru/d/Yb6Fo7lEiBjhvA" },
-    { text: "Контакты", href: "/contacts" },
   ];
   return (
     <AppBar position="sticky" sx={{ background: "white", p: 1 }}>
@@ -120,9 +119,44 @@ export default function Header() {
             })}
           </Breadcrumbs>
         </Nav>
+        <Box>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+            sx={{
+              display: {
+                xs: "block",
+                sm: "block",
+                md: "block",
+                lg: "none",
+                color: "#C152F0",
+              },
+            }}
+          >
+            <img src="/MenuIcon.svg" />
+          </IconButton>
+        </Box>
+        <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+          <Box
+            sx={{ width: 250 }}
+            role="presentation"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+          >
+            <List>
+              {menuItems.map((item) => (
+                <ListItem button key={item.text} component="a" href={item.href}>
+                  <ListItemText sx={{ color: "#BE1BF7" }} primary={item.text} />
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Drawer>
       </StyledToolbar>
       {/* Burger menu */}
-      <Toolbar sx={{ display: { xs: "flex", sm: "flex", md: "none" } }}>
+      <Toolbar sx={{ display: { xs: "flex", sm: "none", md: "none" } }}>
         <Box
           onClick={(e) => {
             e.preventDefault();
@@ -140,7 +174,8 @@ export default function Header() {
           sx={{
             display: {
               xs: "block",
-              sm: "none",
+              sm: "block",
+              md: "none",
               color: "#C152F0",
             },
           }}
