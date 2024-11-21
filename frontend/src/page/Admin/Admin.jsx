@@ -23,8 +23,6 @@ import useAuthStore from "../../store/authStore";
 import NavBar from "./components/NavBar/NavBar";
 import Cookies from "js-cookie";
 
-
-
 export default function Admin() {
   const {
     news,
@@ -70,14 +68,14 @@ export default function Admin() {
                 Array.isArray(news.result) &&
                 news.result.map((row) => (
                   <TableRow
-                    key={row.ID}
+                    key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {row.ID}
+                      {row.id}
                     </TableCell>
                     <TableCell align="right" sx={{ color: "black" }}>
-                      {row.Title}
+                      {row.title}
                     </TableCell>
                     <TableCell align="right">
                       <img
@@ -86,12 +84,12 @@ export default function Admin() {
                           height: "200px",
                           objectFit: "cover",
                         }}
-                        src={`${urlPictures}/${row.Photo}`}
+                        src={`${urlPictures}/${row.photo}`}
                         alt=""
                       />
                     </TableCell>
                     <TableCell align="right">
-                      <IconButton onClick={(e) => deleteNews(row.ID)}>
+                      <IconButton onClick={(e) => deleteNews(row.id)}>
                         <DeleteOutlineOutlinedIcon
                           fontSize="large"
                           sx={{ color: "red" }}
@@ -100,7 +98,7 @@ export default function Admin() {
                       <IconButton
                         onClick={(e) => {
                           e.preventDefault();
-                          window.location.href = `/create-news/${row.ID}`;
+                          window.location.href = `/create-news/${row.id}`;
                         }}
                       >
                         <EditOutlinedIcon fontSize="large" />
