@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	_ "github.com/Fi44er/from-heart-to-heart/backend/docs"
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/app"
@@ -21,15 +20,19 @@ func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Print("No .env file found")
 	}
-	client, err := database.Connect(os.Getenv("MONGODB_URI"))
+
+	db, err := database.ConnectDb()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Connection error to database: %v", err)
 	}
-	defer database.Disconnect(client.Client)
+
+	if err = database.Migrate(db.Db); err != nil {
+		log.Fatalf("Database migration failed: %v", err)
+	}
 
 	validator := validator.New()
 
-	httpSvr := app.NewApp(*client, *validator)
+	httpSvr := app.NewApp(db, *validator)
 	if err = httpSvr.Run(); err != nil {
 		log.Fatal(err)
 	}

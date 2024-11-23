@@ -5,7 +5,6 @@ import (
 
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/models"
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/database"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 type IUserRepository interface {
@@ -22,17 +21,16 @@ func NewUserRepository(db database.Database) *UserRepository {
 }
 
 func (r *UserRepository) Create(ctx context.Context, user *models.User) error {
-	coll := r.db.Client.Database("from-heart-to-heart").Collection("users")
-	_, err := coll.InsertOne(ctx, user)
-	return err
+	if err := r.db.Db.Create(user).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *UserRepository) GetByUsername(ctx context.Context, username string) (models.User, error) {
-	coll := r.db.Client.Database("from-heart-to-heart").Collection("users")
-	filter := bson.M{"username": username}
 	var user models.User
-	if err := coll.FindOne(ctx, filter).Decode(&user); err != nil {
-		return models.User{}, err
+	if err := r.db.Db.Where("username = ?", username).First(&user).Error; err != nil {
+		return user, err
 	}
 	return user, nil
 }
