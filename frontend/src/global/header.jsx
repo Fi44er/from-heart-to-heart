@@ -36,7 +36,7 @@ const Nav = styled("div")(({ theme }) => ({
   position: "absolute",
   top: 140,
   // left: 290,
-  width: "80%",
+  width: "85%",
   height: "45px",
   background: "#C152F0",
   borderRadius: "30px",
@@ -74,6 +74,7 @@ export default function Header() {
       href: "https://chat.whatsapp.com/I0nXNEzdW885onWh2CBVQ2",
     },
     { text: "Документация", href: "https://disk.yandex.ru/d/Yb6Fo7lEiBjhvA" },
+    { text: "Контакты", href: "/contacts" },
   ];
   return (
     <AppBar position="sticky" sx={{ background: "white", p: 1 }}>
@@ -108,7 +109,7 @@ export default function Header() {
                 return (
                   <Link
                     underline="hover"
-                    sx={{ ml: 10, mr: 10 }}
+                    sx={{ ml: 9, mr: 9 }}
                     color="white"
                     href={item.href}
                   >

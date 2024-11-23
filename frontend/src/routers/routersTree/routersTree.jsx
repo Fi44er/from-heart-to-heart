@@ -9,6 +9,7 @@ import ErrorBoundary from "./ErrorBoundary.jsx"; // Импортируйте Err
 import CreateNews from "../../page/Admin/components/CreateNews/CreateNews.jsx";
 import { Navigate } from "react-router-dom";
 import UpdateNews from "../../page/Admin/components/UpdateNews/UpdateNews.jsx";
+import Contacts from "../../page/Contacts/Contacts.jsx";
 
 const PrivateRoute = ({ children }) => {
   const getCookie = (name) => {
@@ -47,6 +48,11 @@ export const router = createBrowserRouter([
   {
     path: "/auth",
     element: <Auth />,
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "/contacts",
+    element: <Contacts />,
     errorElement: <ErrorBoundary />,
   },
   {
