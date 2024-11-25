@@ -118,7 +118,8 @@ func (s *NewsService) Delete(ctx context.Context, id string) error {
 	if err != nil {
 		return err
 	}
-	if err.Error() != "mongo: no documents in result" {
+
+	if news.ID == "" {
 		return nil
 	}
 	if err := s.repo.Delete(ctx, id); err != nil {
