@@ -35,14 +35,10 @@ func (s *AuthService) Login(ctx context.Context, data *dto.User) (string, error)
 	}
 	user, err := s.repo.GetByUsername(ctx, data.Username)
 	if err != nil {
-		if err.Error() == "mongo: no documents in result" {
-			return "", &response.ErrorResponse{
-				StatusCode: 404,
-				Message:    "User not found",
-				Err:        err,
-			}
-		}
 		return "", err
+	}
+	if user.ID == "" {
+		return "", &response.ErrorResponse{StatusCode: 404, Message: "user not found"}
 	}
 
 	if !utils.ComparePassword(user.Password, data.Password) {
@@ -52,7 +48,6 @@ func (s *AuthService) Login(ctx context.Context, data *dto.User) (string, error)
 
 	token, err := utils.GenerateToken(user.ID)
 	if err != nil {
-		log.Println("!!!!")
 		return "", err
 	}
 

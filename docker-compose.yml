@@ -1,15 +1,20 @@
 version: '3.8'
 
 services:
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    ports:
-      - "27017:27017"  # Порт для доступа к MongoDB
+  db:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: postgres
     volumes:
-      - mongo_data:/data/db  # Хранение данных на локальной машине
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
     networks:
       - app-network
+
   
   backend:
     build: ./backend
@@ -19,12 +24,12 @@ services:
     volumes:
       - ./backend/images:/app/images
     depends_on:
-      - mongo
+      - db
     networks:
       - app-network  # Используем сеть для связи между сервисами
 
 volumes:
-  mongo_data:
+  postgres_data:
 
 networks:
   app-network:  # Создаем сеть для связи между сервисами

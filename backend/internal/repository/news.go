@@ -5,10 +5,7 @@ import (
 
 	"github.com/Fi44er/from-heart-to-heart/backend/internal/models"
 	"github.com/Fi44er/from-heart-to-heart/backend/pkg/database"
-	"github.com/Fi44er/from-heart-to-heart/backend/pkg/response"
-	"github.com/Fi44er/from-heart-to-heart/backend/pkg/utils"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"gorm.io/gorm"
 )
 
 type INewsRepository interface {
@@ -28,64 +25,41 @@ func NewNewsRepository(db database.Database) *NewsRepository {
 }
 
 func (r *NewsRepository) Create(ctx context.Context, news *models.News) error {
-	coll := r.db.Client.Database("from-heart-to-heart").Collection("news")
-	_, err := coll.InsertOne(ctx, news)
-	return err
+	if err := r.db.Db.Create(news).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *NewsRepository) GetAll(ctx context.Context) ([]models.News, error) {
-	coll := r.db.Client.Database("from-heart-to-heart").Collection("news")
-
-	filter := bson.D{}
-	cursor, err := coll.Find(ctx, filter)
-	if err != nil {
-		return nil, err
-	}
-
 	var news []models.News
-	if err = cursor.All(ctx, &news); err != nil {
+	if err := r.db.Db.Find(&news).Error; err != nil {
 		return nil, err
 	}
-
 	return news, nil
 }
 
-func (r *NewsRepository) GetByID(ctx context.Context, idHex string) (models.News, error) {
-	coll := r.db.Client.Database("from-heart-to-heart").Collection("news")
-	id, err := primitive.ObjectIDFromHex(idHex)
-
-	if err != nil {
-		return models.News{}, &response.ErrorResponse{
-			StatusCode: 400,
-			Message:    "Invalid ID",
-			Err:        err,
-		}
-	}
-
-	filter := bson.M{"_id": id}
-
+func (r *NewsRepository) GetByID(ctx context.Context, id string) (models.News, error) {
 	var news models.News
-	if err := coll.FindOne(ctx, filter).Decode(&news); err != nil {
-		return models.News{}, err
+	if err := r.db.Db.Where("id = ?", id).First(&news).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return news, nil
+		}
+		return news, err
 	}
-
 	return news, nil
 }
 
 func (r *NewsRepository) Update(ctx context.Context, news *models.News) error {
-	coll := r.db.Client.Database("from-heart-to-heart").Collection("news")
-	id, _ := primitive.ObjectIDFromHex(news.ID)
-
-	updateFields := utils.BsonFieldExtractor(news)
-	filter := bson.D{{"_id", id}}
-	_, err := coll.UpdateOne(ctx, filter, bson.M{"$set": updateFields})
-	return err
+	if err := r.db.Db.Model(news).Updates(news).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func (r *NewsRepository) Delete(ctx context.Context, id string) error {
-	coll := r.db.Client.Database("from-heart-to-heart").Collection("news")
-	idHex, _ := primitive.ObjectIDFromHex(id)
-	filter := bson.D{{"_id", idHex}}
-	_, err := coll.DeleteOne(ctx, filter)
-	return err
+	if err := r.db.Db.Where("id = ?", id).Delete(&models.News{}).Error; err != nil {
+		return err
+	}
+	return nil
 }

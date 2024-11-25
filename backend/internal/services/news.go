@@ -68,14 +68,11 @@ func (s *NewsService) GetAll(ctx context.Context) ([]models.News, error) {
 func (s *NewsService) GetByID(ctx context.Context, id string) (models.News, error) {
 	news, err := s.repo.GetByID(ctx, id)
 	if err != nil {
-		if err.Error() == "mongo: no documents in result" {
-			return models.News{}, &response.ErrorResponse{
-				StatusCode: 404,
-				Message:    "News not found",
-				Err:        err,
-			}
-		}
 		return models.News{}, err
+	}
+
+	if news.ID == "" {
+		return models.News{}, &response.ErrorResponse{StatusCode: 404, Message: "news not found"}
 	}
 	return news, nil
 }
@@ -85,9 +82,11 @@ func (s *NewsService) Update(ctx context.Context, data *dto.UpdateNews, id strin
 	if data.Photo != nil {
 		news, err := s.repo.GetByID(ctx, id)
 		if err != nil {
-			if err.Error() != "mongo: no documents in result" {
-				return err
-			}
+			return err
+		}
+
+		if news.ID == "" {
+			return nil
 		}
 
 		if err := utils.DeleteFile("./images/" + news.Photo); err != nil && news.Photo != "" {
@@ -117,10 +116,10 @@ func (s *NewsService) Update(ctx context.Context, data *dto.UpdateNews, id strin
 func (s *NewsService) Delete(ctx context.Context, id string) error {
 	news, err := s.repo.GetByID(ctx, id)
 	if err != nil {
-		if err.Error() == "mongo: no documents in result" {
-			return nil
-		}
 		return err
+	}
+	if err.Error() != "mongo: no documents in result" {
+		return nil
 	}
 	if err := s.repo.Delete(ctx, id); err != nil {
 		return err
