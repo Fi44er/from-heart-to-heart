@@ -120,6 +120,7 @@ export default function Footer() {
             </Link>
             <Link
               sx={{ color: "#fff", textDecoration: "none", cursor: "pointer" }}
+              href="https://disk.yandex.ru/d/Yb6Fo7lEiBjhvA"
             >
               Документация
             </Link>
