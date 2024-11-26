@@ -15,10 +15,10 @@ import (
 	"github.com/google/uuid"
 )
 
-const (
+var (
 	yookassaURL       = "https://api.yookassa.ru/v3/payments"
-	yookassaShopID    = "481201"                                           // Замените на ваш Shop ID
-	yookassaSecretKey = "test_ycGB8uE3UV1mlIP4pGli_f_9ugaE_3YF737NeJz9Ads" // Замените на ваш Secret Key
+	yookassaShopID    = "481201"                         // Замените на ваш Shop ID
+	yookassaSecretKey = os.Getenv("YOOKASSA_SECRET_KEY") // Замените на ваш Secret Key
 )
 
 type IPaymentService interface {
