@@ -15,18 +15,18 @@ services:
     networks:
       - app-network
 
-  
-  backend:
-    build: ./backend
-    container_name: backend
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./backend/images:/app/images
-    depends_on:
-      - db
-    networks:
-      - app-network  # Используем сеть для связи между сервисами
+  #
+  # backend:
+  #   build: ./backend
+  #   container_name: backend
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./backend/images:/app/images
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - app-network  # Используем сеть для связи между сервисами
 
 volumes:
   postgres_data:

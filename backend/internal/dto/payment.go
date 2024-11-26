@@ -10,6 +10,7 @@ type PaymentRequest struct {
 	Description  string       `json:"description"`
 	Confirmation Confirmation `json:"confirmation"`
 	Capture      bool         `json:"capture"`
+	Receipt      Receipt      `json:"receipt"`
 }
 
 type Amount struct {
@@ -44,4 +45,22 @@ type PaymentResponse struct {
 	Paid         bool                 `json:"paid"`
 	Refundable   bool                 `json:"refundable"`
 	Metadata     interface{}          `json:"metadata"`
+}
+
+type Receipt struct {
+	Customer Customer      `json:"customer"`
+	Items    []ReceiptItem `json:"items"`
+}
+
+type Customer struct {
+	Email string `json:"email"`
+}
+
+type ReceiptItem struct {
+	Description    string `json:"description"`
+	Amount         Amount `json:"amount"`
+	Quantity       int    `json:"quantity"`
+	VatCode        int    `json:"vat_code"` // Optional: VAT code if applicable
+	PaymentSubject string `json:"payment_subject"`
+	PaymentMode    string `json:"payment_mode"`
 }
