@@ -42,8 +42,8 @@ const Nav = styled("div")(({ theme }) => ({
   borderRadius: "30px",
   display: "flex",
   alignItems: "center",
-  paddingLeft: "60px",
-  paddingRight: "60px",
+  paddingLeft: "65px",
+  paddingRight: "65px",
   [theme.breakpoints.down("lg")]: {
     // Используйте медиа-запрос для скрытия на мобильных устройствах
     display: "none",
@@ -107,7 +107,7 @@ export default function Header() {
                 return (
                   <Link
                     underline="hover"
-                    sx={{ ml: 7, mr: 7 }}
+                    sx={{ ml: 4, mr: 4 }}
                     color="white"
                     href={item.href}
                   >
