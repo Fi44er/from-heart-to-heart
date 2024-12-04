@@ -195,7 +195,7 @@ export default function HelpSection() {
               }}
             >
               <Typography variant="h5" component="h2">
-                Волонтер - кто он? Волонтер — это человек, который безвозмездно
+                Волонтер — кто он? Волонтер — это человек, который безвозмездно
                 оказывает помощь другим людям.
               </Typography>
             </AccordionDetails>
