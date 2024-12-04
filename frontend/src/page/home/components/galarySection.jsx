@@ -128,7 +128,7 @@ export default function GalarySection() {
         }}
       ></Box>
       <Container>
-        <Typography variant="h3" sx={{ mb: 5 }}>
+        <Typography variant="h3" sx={{ mb: 5, fontSize: { xs: "2rem", md: "3rem" } }}>
           Галерея фонда
         </Typography>
         <Box

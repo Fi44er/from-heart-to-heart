@@ -36,12 +36,15 @@ export default function Footer() {
             sx={{
               display: "flex",
               flexDirection: "column",
+              justifyContent: "center",
+              alignItems: { xs: "center", md: "flex-start" },
               gridGap: "50px",
             }}
           >
             <Box
               sx={{
                 display: "flex",
+                justifyContent: "center",
                 alignItems: "center",
                 gridGap: 10,
                 color: "#fff",
@@ -51,7 +54,12 @@ export default function Footer() {
               <Link
                 href="https://yandex.ru/maps/11090/novotroitsk/house/ulitsa_frunze_4/YUEYdQZiTEcHQFtrfX14dX9mZQ==/?ll=58.312520%2C51.194352&z=17"
                 variant="h5"
-                sx={{ color: "white", textDecoration: "none" }}
+                sx={{
+                  color: "white",
+                  textDecoration: "none",
+                  textAlign: "left",
+                  fontSize: { xs: "1.3rem", md: "1.5rem" },
+                }}
               >
                 Оренбургская обл г. Новотроицк улица Фрунзе дом 4
               </Link>

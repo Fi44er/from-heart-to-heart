@@ -92,7 +92,11 @@ export default function HelpSection() {
         }}
       ></Box>
       <Container>
-        <Typography variant="h3" component="h1" sx={{ mb: 5 }}>
+        <Typography
+          variant="h3"
+          component="h2"
+          sx={{ mb: 5, fontSize: { xs: "2rem", md: "3rem" } }}
+        >
           Помощь фонду
         </Typography>
         <Box
@@ -261,7 +265,12 @@ export default function HelpSection() {
                 <Typography
                   variant="h4"
                   component="h2"
-                  sx={{ mb: 5, mt: 5, textAlign: "center" }}
+                  sx={{
+                    mb: 5,
+                    mt: 5,
+                    textAlign: "center",
+                    fontSize: { xs: "1.3rem", md: "2.2rem" },
+                  }}
                 >
                   Наши проекты существуют при финансовой поддержке спонсоров,
                   партнеров и благотворителей Не оставайтесь в стороне, вместе

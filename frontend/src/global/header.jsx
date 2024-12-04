@@ -36,7 +36,7 @@ const Nav = styled("div")(({ theme }) => ({
   position: "absolute",
   top: 140,
   // left: 290,
-  width: "85%",
+  width: "max-content",
   height: "45px",
   background: "#C152F0",
   borderRadius: "30px",
@@ -80,10 +80,6 @@ export default function Header() {
     <AppBar position="sticky" sx={{ background: "white", p: 1 }}>
       <StyledToolbar>
         <Box
-          onClick={(e) => {
-            e.preventDefault();
-            window.location.href = "/";
-          }}
           sx={{
             width: {
               xs: "150px",
@@ -94,7 +90,9 @@ export default function Header() {
             zIndex: "4",
           }}
         >
-          <img style={{ width: "100%" }} src="/Logo.png" alt="" />
+          <Link href="/">
+            <img style={{ width: "100%" }} src="/Logo.png" alt="" />
+          </Link>
         </Box>
         <Nav>
           <Breadcrumbs
@@ -109,7 +107,7 @@ export default function Header() {
                 return (
                   <Link
                     underline="hover"
-                    sx={{ ml: 9, mr: 9 }}
+                    sx={{ ml: 7, mr: 7 }}
                     color="white"
                     href={item.href}
                   >
@@ -158,14 +156,10 @@ export default function Header() {
       </StyledToolbar>
       {/* Burger menu */}
       <Toolbar sx={{ display: { xs: "flex", sm: "none", md: "none" } }}>
-        <Box
-          onClick={(e) => {
-            e.preventDefault();
-            window.location.href = "/";
-          }}
-          sx={{ flexGrow: 1, cursor: "pointer" }}
-        >
-          <img style={{ width: "100px" }} src={mobileLogo} alt="Logo" />
+        <Box sx={{ flexGrow: 1, cursor: "pointer" }}>
+          <Link href="/">
+            <img style={{ width: "75%" }} src="/Logo.png" alt="" />
+          </Link>
         </Box>
         <IconButton
           edge="start"

@@ -101,7 +101,7 @@ export default function Home() {
                 alt="png"
                 sx={{
                   width: "100%",
-                  height: { xs: "250px", sm: "500px", md: "800px" },
+                  height: { xs: "250px", sm: "500px", md: "900px" },
                   objectFit: "cover",
                 }}
               />

@@ -28,12 +28,15 @@ export default function NewsSection() {
   return (
     <Box sx={{ position: "relative" }}>
       <Helmet>
-        <title>Последние проекты</title>
+        <title>Недавние проекты</title>
         <meta
           name="description"
-          content="Посмотрите последние проекты и новости на нашем сайте."
+          content="Посмотрите недавние проекты и новости на нашем сайте."
         />
-        <meta name="keywords" content="новости, проекты, последние новости" />
+        <meta
+          name="keywords"
+          content="новости, проекты, недавние новости, проекты"
+        />
       </Helmet>
       <Box
         sx={{
@@ -77,8 +80,12 @@ export default function NewsSection() {
         }}
       ></Box>
       <Container>
-        <Typography variant="h3" component="h2">
-          Последние проекты
+        <Typography
+          sx={{ fontSize: { xs: "2rem", md: "3rem" } }}
+          variant="h3"
+          component="h2"
+        >
+          Недавние проекты
         </Typography>
         <Grid
           container

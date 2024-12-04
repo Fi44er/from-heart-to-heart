@@ -58,7 +58,9 @@ export default function About() {
         }}
       ></Box>
       <Container sx={{ zIndex: 10 }}>
-        <Typography variant="h3">О фонде</Typography>
+        <Typography variant="h3" sx={{ fontSize: { xs: "2rem", md: "3rem" } }}>
+          О фонде
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -70,8 +72,18 @@ export default function About() {
           }}
         >
           <Box sx={{ width: { xs: "100%", sm: "50%" } }}>
-            <Typography variant="h5" component="p">
-              Благотворительный фонд с 2017года объединяет людей, желающих
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "1.3rem",
+                  md: "1.5rem",
+                  width: "100%",
+                  textAlign: "justify",
+                },
+              }}
+              component="p"
+            >
+              Благотворительный фонд с 2017 года объединяет людей, желающих
               помогать и тех, кому нужна помощь. Силами партнёров и волонтёров
               фонд помогает людям справиться с жизненными трудностями. Ежегодно
               мы оказываем поддержку более чем 500 горожанам из двух населенных
@@ -87,9 +99,6 @@ export default function About() {
                 mt: 10,
               }}
             >
-              <Typography variant="h5" color="textSecondary" component="p">
-                Сертификат о разрешение на работу фонда можно скачать ниже
-              </Typography>
               <GlobalButton
                 onClick={(e) => {
                   e.preventDefault();
@@ -105,10 +114,11 @@ export default function About() {
             <Paper>
               <video
                 width="100%"
-                height="400px"
+                height="100%"
                 src="/phond.mp4"
                 aria-label="Видео о работе фонда"
                 controls
+                poster="/previewvideo.png"
               ></video>
             </Paper>
           </Box>
