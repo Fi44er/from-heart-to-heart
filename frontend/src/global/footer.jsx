@@ -61,7 +61,7 @@ export default function Footer() {
                   fontSize: { xs: "1.3rem", md: "1.5rem" },
                 }}
               >
-                Оренбургская обл г. Новотроицк улица Фрунзе дом 4
+                Оренбургская область, город Новотроицк, улица Фрунзе, дом 4
               </Link>
             </Box>
             <Typography variant="h5" sx={{ color: "#fff" }}>

@@ -24,8 +24,7 @@ export default function Contacts() {
       <Paper elevation={3} style={{ padding: "16px", marginBottom: "16px" }}>
         <Typography variant="h6">Адрес</Typography>
         <Typography variant="body1">
-          улица Фрунзе, д. Д. 4, кв./оф. ПОМЕЩ. 1, Оренбургская область, р-н
-          ГОРОД НОВОТРОИЦК, г. Новотроицк
+          Оренбургская область, город Новотроицк, улица Фрунзе, дом 4
         </Typography>
       </Paper>
 
@@ -101,7 +100,7 @@ export default function Contacts() {
             <ListItemText primary="Номер корр. счета банка получателя: 30101810200000000824" />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Адрес получателя: улица Фрунзе, д. Д. 4, кв./оф. ПОМЕЩ. 1, Оренбургская область, р-н ГОРОД НОВОТРОИЦК, г. Новотроицк" />
+            <ListItemText primary="Адрес получателя: Оренбургская область, город Новотроицк, улица Фрунзе, дом 4" />
           </ListItem>
         </List>
       </Paper>

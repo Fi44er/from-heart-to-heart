@@ -130,7 +130,7 @@ export default function NewsSection() {
               window.location.href = "/news";
             }}
           >
-            Все проектры
+            Все проекты
           </GlobalButton>
         </Box>
       </Container>
