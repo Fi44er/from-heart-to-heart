@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 	"os"
 
@@ -15,10 +16,10 @@ import (
 	"github.com/google/uuid"
 )
 
-const (
+var (
 	yookassaURL       = "https://api.yookassa.ru/v3/payments"
-	yookassaShopID    = "481201"                                           // Замените на ваш Shop ID
-	yookassaSecretKey = "test_ycGB8uE3UV1mlIP4pGli_f_9ugaE_3YF737NeJz9Ads" // Замените на ваш Secret Key
+	yookassaShopID    = "479547"                                           // 481201  479547
+	yookassaSecretKey = "live_kSLKuAYkKzcii_RWnIiW5zvwp54Zz3bLfD6_aRG6CnE" // test_ycGB8uE3UV1mlIP4pGli_f_9ugaE_3YF737NeJz9Ads  live_kSLKuAYkKzcii_RWnIiW5zvwp54Zz3bLfD6_aRG6CnE
 )
 
 type IPaymentService interface {
@@ -50,7 +51,24 @@ func (s *PaymentService) CreatePayment(ctx context.Context, dtoReq *dto.PaymentD
 		Description:  dtoReq.Description,
 		Confirmation: dto.Confirmation{Type: "redirect", ReturnURL: main_page},
 		Capture:      true,
-	}
+		Receipt: dto.Receipt{
+			Customer: dto.Customer{
+				Email: "G6B2M@example.com",
+			},
+			Items: []dto.ReceiptItem{
+				{
+					Description: "Благотворительность",
+					Amount: dto.Amount{
+						Value:    dtoReq.Value,
+						Currency: "RUB",
+					},
+					Quantity:       1,
+					VatCode:        1,
+					PaymentSubject: "another",
+					PaymentMode:    "full_payment",
+				},
+			},
+		}}
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
@@ -62,6 +80,7 @@ func (s *PaymentService) CreatePayment(ctx context.Context, dtoReq *dto.PaymentD
 		return "", err
 	}
 
+	log.Println(os.Getenv("YOOKASSA_SECRET_KEY"))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Basic "+basicAuth(yookassaShopID, yookassaSecretKey))
 	req.Header.Set("Idempotence-Key", generateIdempotenceKey()) // Добавляем уникальный ключ
@@ -79,6 +98,7 @@ func (s *PaymentService) CreatePayment(ctx context.Context, dtoReq *dto.PaymentD
 	}
 
 	if resp.StatusCode != http.StatusOK {
+		log.Printf("YooKassa error response: %s", string(body))
 		return "", &response.ErrorResponse{StatusCode: resp.StatusCode, Message: "Err yookassa", Err: nil}
 	}
 
